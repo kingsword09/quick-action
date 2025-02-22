@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process'
 import path from 'node:path'
+// import { glob } from 'node:fs/promises'
 import { glob } from 'glob'
 import { defineExtension, extensionContext } from 'reactive-vscode'
 import { Uri, commands, window, workspace } from 'vscode'
@@ -24,6 +25,10 @@ const { activate, deactivate } = defineExtension(() => {
     const programActions: Record<string, string> = workspace.getConfiguration('quick-action').get('programActions') ?? {}
 
     for await (const [key, value] of recordToAsyncIterable(programActions)) {
+      // if ((await Array.fromAsync(glob(key.split(';'), { cwd: selectDirPath }))).length > 0) {
+      //   programName = value
+      //   break
+      // }
       if ((await glob(key.split(';'), { cwd: selectDirPath })).length > 0) {
         programName = value
         break
