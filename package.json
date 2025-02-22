@@ -55,7 +55,7 @@
           "type": "object",
           "default": {
             "*.gradle.kts;*.gradle": "Android Studio",
-            "*.xcodeproj;*.xcworkspace": "Xcode"
+            "*.xcodeproj;*.xcworkspace;Package.swift": "Xcode"
           },
           "description": "Program include files."
         }
@@ -76,21 +76,21 @@
     "release": "bumpp && nr publish"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.25.2",
+    "@antfu/eslint-config": "^2.27.3",
     "@antfu/ni": "^0.22.4",
-    "@types/node": "^22.4.0",
-    "@types/vscode": "^1.92.0",
-    "@vscode/vsce": "^3.0.0",
-    "bumpp": "^9.5.1",
-    "eslint": "^9.9.0",
-    "esno": "^4.7.0",
-    "glob": "^11.0.0",
-    "pnpm": "^9.7.1",
+    "@types/node": "^22.13.5",
+    "@types/vscode": "^1.97.0",
+    "@vscode/vsce": "^3.2.2",
+    "bumpp": "^9.11.1",
+    "eslint": "^9.21.0",
+    "esno": "^4.8.0",
+    "glob": "^11.0.1",
+    "pnpm": "^9.15.5",
     "reactive-vscode": "0.2.0-beta.9",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.1",
-    "vitest": "^2.0.5",
-    "vscode-ext-gen": "^0.3.6"
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14",
+    "vitest": "^2.1.9",
+    "vscode-ext-gen": "^0.3.7"
   }
 }
