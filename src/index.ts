@@ -20,7 +20,7 @@ const { activate, deactivate } = defineExtension(() => {
       selectDirPath = path.dirname(currentFilePath)
     }
 
-    let programName = 'Visual Studio Code'
+    const programs = new Set(['Visual Studio Code'])
 
     const programActions: Record<string, string> = workspace.getConfiguration('quick-action').get('programActions') ?? {}
 
@@ -29,13 +29,26 @@ const { activate, deactivate } = defineExtension(() => {
       //   programName = value
       //   break
       // }
-      if ((await glob(key.split(';'), { cwd: selectDirPath })).length > 0) {
-        programName = value
-        break
+      if ((await glob(key.split(';'), { cwd: selectDirPath, includeChildMatches: false })).length > 0) {
+        programs.add(value)
       }
     }
 
-    spawn('bash', ['-c', `open -a "${programName}" "${selectDirPath}"`])
+    if (programs.size === 1) {
+      spawn('bash', ['-c', `open -a "${programs.values().next().value}" "${selectDirPath}"`])
+    }
+    else {
+      const options = []
+      for (const item of programs.values()) {
+        options.push(item)
+      }
+
+      const selectedOption = await window.showQuickPick(options, { placeHolder: 'Please select a program.' })
+
+      if (selectedOption) {
+        spawn('bash', ['-c', `open -a "${selectedOption}" "${selectDirPath}"`])
+      }
+    }
   })
 
   extensionContext.value?.subscriptions.push(disposable)
